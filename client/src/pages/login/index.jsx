@@ -1,52 +1,74 @@
 import { useState } from 'react';
-import { Grid, Form, Icon, Button } from 'semantic-ui-react';
+import { Grid, Form, Icon } from 'semantic-ui-react';
 import styled from 'styled-components';
 
 import { CustomInputField } from '../../components/customComponents/CustomFormFields';
 
+const intialFromData = {
+	firstName: '',
+	lastName: '',
+	email: '',
+	password: '',
+	cpassword: ''
+};
+
 const Login = () => {
-	const [isSignup, setIsSignup] = useState(false);
+	const [isSignUp, setIsSignUp] = useState(false);
+	const [formData, setFromData] = useState(intialFromData);
 
 	const handleMode = () => {
-		setIsSignup((prevState) => !prevState);
+		setIsSignUp((prevState) => !prevState);
+	};
+
+	const handleChange = (e) => {
+		setFromData({
+			...formData,
+			[e.target.name]: e.target.value
+		});
+	};
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+
+		console.log(formData);
 	};
 
 	return (
 		<Grid padded width='16' centered style={{ minHeight: '100vh' }}>
 			<Grid.Row style={{ alignItems: 'center' }}>
-				<StyledFromContainer padded>
-					<StyledIcon name={isSignup ? 'user plus' : 'user'} circular bordered color='blue' inverted size='big' />
-					<StyledLoginMode>{isSignup ? 'Sign Up' : 'Login'}</StyledLoginMode>
-					<Form>
-						{isSignup && (
+				<StyledFromContainer>
+					<StyledIcon name={isSignUp ? 'user plus' : 'user'} circular bordered color='blue' inverted size='big' />
+					<StyledLoginMode>{isSignUp ? 'Sign Up' : 'Login'}</StyledLoginMode>
+					<Form onSubmit={handleSubmit}>
+						{isSignUp && (
 							<>
-								<CustomInputField name='firstName' type='text' placeholder='First Name' label='First Name' />
-								<CustomInputField name='lastName' type='text' placeholder='Last Name' label='Last Name' />
+								<CustomInputField name='firstName' type='text' placeholder='First Name' label='First Name' handleChange={handleChange} />
+								<CustomInputField name='lastName' type='text' placeholder='Last Name' label='Last Name' handleChange={handleChange} />
 							</>
 						)}
 
-						<CustomInputField name='email' type='text' placeholder='Your email' label='Email' />
-						<CustomInputField name='password' type='password' placeholder='Password' label='Password' />
-						{isSignup && (
+						<CustomInputField name='email' type='text' placeholder='Your email' label='Email' handleChange={handleChange} />
+						<CustomInputField name='password' type='password' placeholder='Password' label='Password' handleChange={handleChange} />
+						{isSignUp && (
 							<CustomInputField
 								name='cpassword'
 								type='password'
 								placeholder='Re-enter password'
 								label='Confirm Password'
+								handleChange={handleChange}
 							/>
 						)}
 
-						<StyledButton color='blue'>{isSignup ? 'Sign Up' : 'Login'}</StyledButton>
-						{!isSignup && (
-							<StyledButton style={{ marginTop: '1rem' }} color='google plus'>
+						<StyledBtn className='ui button blue'>{isSignUp ? 'Sign Up' : 'Login'}</StyledBtn>
+
+						{!isSignUp && (
+							<StyledBtn className='ui button google plus' style={{ marginTop: '1rem' }} color='google plus'>
 								Google Login
-							</StyledButton>
+							</StyledBtn>
 						)}
 					</Form>
 
-					<StyledPara onClick={handleMode}>
-						{isSignup ? 'Already have an account? Login' : 'Dont have an account? Sign up'}
-					</StyledPara>
+					<StyledPara onClick={handleMode}>{isSignUp ? 'Already have an account? Login' : 'Dont have an account? Sign up'}</StyledPara>
 				</StyledFromContainer>
 			</Grid.Row>
 		</Grid>
@@ -77,13 +99,13 @@ const StyledLoginMode = styled.p`
 	font-size: 1.5rem;
 `;
 
-const StyledButton = styled(Button)`
-	width: 100%;
-`;
-
 const StyledPara = styled.p`
 	cursor: pointer;
 	color: #3f3fad;
 	text-align: right;
 	margin-top: 1rem;
+`;
+
+const StyledBtn = styled.button`
+	width: 100%;
 `;
