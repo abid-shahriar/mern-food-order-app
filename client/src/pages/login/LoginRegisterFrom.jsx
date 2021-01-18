@@ -1,5 +1,6 @@
+import axios from 'axios';
 import { useState } from 'react';
-import { Grid, Form, Icon } from 'semantic-ui-react';
+import { Grid, Form, Icon, Message } from 'semantic-ui-react';
 import styled from 'styled-components';
 
 import { CustomInputField } from '../../components/customComponents/CustomFormFields';
@@ -15,6 +16,7 @@ const intialFromData = {
 const LoginRegisterFrom = () => {
 	const [isSignUp, setIsSignUp] = useState(false);
 	const [formData, setFromData] = useState(intialFromData);
+	const [errorMsg, setErroeMsg] = useState('');
 
 	const handleMode = () => {
 		setIsSignUp((prevState) => !prevState);
@@ -27,16 +29,25 @@ const LoginRegisterFrom = () => {
 		});
 	};
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		console.log(formData);
+		await axios
+			.post('http://localhost:3000/user/login', formData)
+			.then((res) => {
+				if (res.status === 200) {
+					setErroeMsg('');
+				}
+			})
+			.catch((err) => {
+				setErroeMsg(err.response.data.message);
+			});
 	};
 	return (
 		<StyledFromContainer>
 			<StyledIcon name={isSignUp ? 'user plus' : 'user'} circular bordered color='blue' inverted size='big' />
 			<StyledPara modeText>{isSignUp ? 'Sign Up' : 'Login'}</StyledPara>
-			<Form onSubmit={handleSubmit}>
+			<Form onSubmit={handleSubmit} error={errorMsg ? true : false}>
 				{isSignUp && (
 					<>
 						<CustomInputField name='firstName' type='text' placeholder='First Name' label='First Name' handleChange={handleChange} />
@@ -49,6 +60,8 @@ const LoginRegisterFrom = () => {
 				{isSignUp && (
 					<CustomInputField name='cpassword' type='password' placeholder='Re-enter password' label='Confirm Password' handleChange={handleChange} />
 				)}
+
+				{errorMsg && <Message error header='Login Failed' content={errorMsg} />}
 
 				<StyledBtn className='ui button blue'>{isSignUp ? 'Sign Up' : 'Login'}</StyledBtn>
 

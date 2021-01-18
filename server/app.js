@@ -8,7 +8,7 @@ import userRoutes from './routes/user.js';
 dotenv.config();
 
 const URI = process.env.MONGODB_URI;
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 
 const app = express();
 
