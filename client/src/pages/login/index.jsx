@@ -1,4 +1,5 @@
 import { Grid } from 'semantic-ui-react';
+
 import LoginRegisterFrom from './LoginRegisterFrom';
 
 const Login = () => {

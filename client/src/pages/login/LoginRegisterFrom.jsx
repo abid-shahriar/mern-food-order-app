@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Grid, Form, Icon } from 'semantic-ui-react';
 import styled from 'styled-components';
+
 import { CustomInputField } from '../../components/customComponents/CustomFormFields';
 
 const intialFromData = {
