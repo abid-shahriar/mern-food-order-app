@@ -1,7 +1,15 @@
 import { Input, Form } from 'semantic-ui-react';
+import styled from 'styled-components';
 
 export const CustomInputField = ({ label, name, placeholder, type, width = 16 }) => (
-	<Form.Field width={width}>
+	<StyledFormField width={width}>
 		<Input name={name} label={label} type={type} placeholder={placeholder} />
-	</Form.Field>
+	</StyledFormField>
 );
+
+const StyledFormField = styled(Form.Field)`
+	& .label {
+		min-width: 138px;
+		text-align: center;
+	}
+`;

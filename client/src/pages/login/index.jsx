@@ -7,11 +7,15 @@ import { CustomInputField } from '../../components/customComponents/CustomFormFi
 const Login = () => {
 	const [isSignup, setIsSignup] = useState(false);
 
+	const handleMode = () => {
+		setIsSignup((prevState) => !prevState);
+	};
+
 	return (
 		<Grid padded width='16' centered style={{ minHeight: '100vh' }}>
 			<Grid.Row style={{ alignItems: 'center' }}>
-				<StyledPageContainer width='4' padded>
-					<StyledIcon name='key' circular bordered color='red' inverted size='big' />
+				<StyledFromContainer padded>
+					<StyledIcon name={isSignup ? 'user plus' : 'user'} circular bordered color='blue' inverted size='big' />
 					<StyledLoginMode>{isSignup ? 'Sign Up' : 'Login'}</StyledLoginMode>
 					<Form>
 						{isSignup && (
@@ -39,7 +43,11 @@ const Login = () => {
 							</StyledButton>
 						)}
 					</Form>
-				</StyledPageContainer>
+
+					<StyledPara onClick={handleMode}>
+						{isSignup ? 'Already have an account? Login' : 'Dont have an account? Sign up'}
+					</StyledPara>
+				</StyledFromContainer>
 			</Grid.Row>
 		</Grid>
 	);
@@ -47,8 +55,9 @@ const Login = () => {
 
 export default Login;
 
-const StyledPageContainer = styled(Grid.Column)`
-	height: 600px;
+const StyledFromContainer = styled(Grid.Column)`
+	min-width: 320px;
+	max-width: 400px;
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 	border-radius: 3px;
 	padding: 1rem;
@@ -72,7 +81,9 @@ const StyledButton = styled(Button)`
 	width: 100%;
 `;
 
-const StyledP = styled.p``;
-const StyledDiv = styled.div`
-	font-size: 1.4rem;
+const StyledPara = styled.p`
+	cursor: pointer;
+	color: #3f3fad;
+	text-align: right;
+	margin-top: 1rem;
 `;
