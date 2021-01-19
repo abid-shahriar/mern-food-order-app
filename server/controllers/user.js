@@ -16,6 +16,7 @@ export const signIn = (req, res) => {
 
 	res.json({ user: req.body });
 };
+
 export const signUp = async (req, res) => {
 	const { firstName, lastName, email, password } = req.body;
 

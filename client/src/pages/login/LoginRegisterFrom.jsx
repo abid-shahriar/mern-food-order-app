@@ -32,16 +32,30 @@ const LoginRegisterFrom = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		await axios
-			.post('http://localhost:3000/user/login', formData)
-			.then((res) => {
-				if (res.status === 200) {
-					setErroeMsg('');
-				}
-			})
-			.catch((err) => {
-				setErroeMsg(err.response.data.message);
-			});
+		if (isSignUp) {
+			await axios
+				.post('http://localhost:3000/user/signup', formData)
+				.then((res) => {
+					if (res.status === 200) {
+						setErroeMsg('');
+						console.log(res.data);
+					}
+				})
+				.catch((err) => {
+					setErroeMsg(err.response.data.message);
+				});
+		} else {
+			await axios
+				.post('http://localhost:3000/user/login', formData)
+				.then((res) => {
+					if (res.status === 200) {
+						setErroeMsg('');
+					}
+				})
+				.catch((err) => {
+					setErroeMsg(err.response.data.message);
+				});
+		}
 	};
 	return (
 		<StyledFromContainer>
