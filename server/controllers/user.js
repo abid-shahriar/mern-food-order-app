@@ -20,7 +20,7 @@ export const signIn = async (req, res) => {
 
 		if (!isPassCorrect) return res.status(400).json({ message: 'invalid Credentials' });
 
-		const token = jwt.sign({ email: oldUser.email, firstName: oldUser.firstName, lastName: oldUser.lastName, id: oldUser._id }, secret, {
+		const token = jwt.sign({ email: oldUser.email, id: oldUser._id }, secret, {
 			expiresIn: '1w'
 		});
 
@@ -44,7 +44,7 @@ export const signUp = async (req, res) => {
 
 		const newUser = await userModel.create({ firstName, lastName, email, password: hashedPass });
 
-		const token = jwt.sign({ email: newUser.email, firstName: newUser.firstName, lastName: newUser.lastName, id: newUser._id }, secret, {
+		const token = jwt.sign({ email: newUser.email, id: newUser._id }, secret, {
 			expiresIn: '1w'
 		});
 
