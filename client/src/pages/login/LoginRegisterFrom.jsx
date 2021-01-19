@@ -33,6 +33,9 @@ const LoginRegisterFrom = () => {
 		e.preventDefault();
 
 		if (isSignUp) {
+			if (formData.password !== formData.cpassword) {
+				return setErroeMsg('Passowrds does not match');
+			}
 			await axios
 				.post('http://localhost:3000/user/signup', formData)
 				.then((res) => {
@@ -75,7 +78,7 @@ const LoginRegisterFrom = () => {
 					<CustomInputField name='cpassword' type='password' placeholder='Re-enter password' label='Confirm Password' handleChange={handleChange} />
 				)}
 
-				{errorMsg && <Message error header='Login Failed' content={errorMsg} />}
+				{errorMsg && <Message error header={`Error..!!!`} content={errorMsg} />}
 
 				<StyledBtn className='ui button blue'>{isSignUp ? 'Sign Up' : 'Login'}</StyledBtn>
 

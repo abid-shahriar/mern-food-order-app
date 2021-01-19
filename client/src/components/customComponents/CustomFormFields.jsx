@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export const CustomInputField = ({ label, name, placeholder, type, width = 16, handleChange }) => (
 	<StyledFormField width={width}>
-		<Input name={name} label={label} type={type} placeholder={placeholder} onChange={handleChange} />
+		<Input name={name} label={label} type={type} placeholder={placeholder} onChange={handleChange} required />
 	</StyledFormField>
 );
 
