@@ -2,7 +2,7 @@ import * as actionTypes from '../constants/actionTypes';
 
 const initialState = {
 	userToken: '',
-	loading: true,
+	loading: false,
 	error: ''
 };
 
@@ -17,7 +17,7 @@ const authReducer = (state = initialState, action) => {
 			};
 
 		case actionTypes.SIGNUP_SUCCESS:
-			console.log(action.payload);
+			localStorage.setItem('profile', JSON.stringify({ ...action.payload }));
 			return {
 				...state,
 				userToken: action.payload,
@@ -26,7 +26,6 @@ const authReducer = (state = initialState, action) => {
 			};
 
 		case actionTypes.SIGNUP_FAILED:
-			console.log(action.payload);
 			return {
 				...state,
 				userToken: '',
@@ -34,8 +33,6 @@ const authReducer = (state = initialState, action) => {
 				error: action.payload
 			};
 		case actionTypes.LOGIN_REQUEST:
-			console.log(action.payload);
-			console.log(state);
 			return {
 				...state,
 				userToken: '',
@@ -43,7 +40,7 @@ const authReducer = (state = initialState, action) => {
 				error: ''
 			};
 		case actionTypes.LOGIN_SUCCESS:
-			console.log(action.payload);
+			localStorage.setItem('profile', JSON.stringify({ ...action.payload }));
 			return {
 				...state,
 				userToken: action.payload,
@@ -52,8 +49,6 @@ const authReducer = (state = initialState, action) => {
 			};
 
 		case actionTypes.LOGIN_FAILED:
-			console.log(state);
-			console.log(action.payload);
 			return {
 				...state,
 				userToken: '',

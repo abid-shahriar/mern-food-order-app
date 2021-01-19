@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { Grid, Form, Icon, Message } from 'semantic-ui-react';
+import { useEffect, useState } from 'react';
+import { Grid, Form, Icon, Message, Loader } from 'semantic-ui-react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { signIn, signUp } from '../../store/actions/auth';
 
@@ -18,12 +18,20 @@ const intialFromData = {
 const LoginRegisterFrom = () => {
 	const [isSignUp, setIsSignUp] = useState(false);
 	const [formData, setFromData] = useState(intialFromData);
-	const [errorMsg, setErroeMsg] = useState('');
+	const [errorMessage, setErrorMessage] = useState('');
 
 	const dispatch = useDispatch();
+	const auth = useSelector((state) => state.auth);
+
+	useEffect(() => {
+		setErrorMessage(auth.error);
+	}, [auth]);
 
 	const handleMode = () => {
+		document.querySelector('form').reset();
+
 		setIsSignUp((prevState) => !prevState);
+		setErrorMessage('');
 	};
 
 	const handleChange = (e) => {
@@ -38,7 +46,7 @@ const LoginRegisterFrom = () => {
 
 		if (isSignUp) {
 			if (formData.password !== formData.cpassword) {
-				return setErroeMsg('Passowrds does not match');
+				return setErrorMessage('Passowrds does not match');
 			}
 
 			dispatch(signUp(formData));
@@ -50,7 +58,7 @@ const LoginRegisterFrom = () => {
 		<StyledFromContainer>
 			<StyledIcon name={isSignUp ? 'user plus' : 'user'} circular bordered color='blue' inverted size='big' />
 			<StyledPara modeText>{isSignUp ? 'Sign Up' : 'Login'}</StyledPara>
-			<Form onSubmit={handleSubmit} error={errorMsg ? true : false}>
+			<Form onSubmit={handleSubmit} error={errorMessage ? true : false}>
 				{isSignUp && (
 					<>
 						<CustomInputField name='firstName' type='text' placeholder='First Name' label='First Name' handleChange={handleChange} />
@@ -64,9 +72,11 @@ const LoginRegisterFrom = () => {
 					<CustomInputField name='cpassword' type='password' placeholder='Re-enter password' label='Confirm Password' handleChange={handleChange} />
 				)}
 
-				{errorMsg && <Message error header={`Error..!!!`} content={errorMsg} />}
+				{errorMessage && <Message size='small' error header={`Error..!!!`} content={errorMessage} />}
 
-				<StyledBtn className='ui button blue'>{isSignUp ? 'Sign Up' : 'Login'}</StyledBtn>
+				<StyledBtn className='ui button blue'>
+					{auth.loading ? <Loader inverted size='tiny' inline active={auth.loading} /> : isSignUp ? 'Sign Up' : 'Login'}
+				</StyledBtn>
 
 				{!isSignUp && (
 					<StyledBtn className='ui button google plus' style={{ marginTop: '1rem' }} color='google plus'>
@@ -88,6 +98,7 @@ const StyledFromContainer = styled(Grid.Column)`
 	border-radius: 3px;
 	padding: 1rem;
 	position: relative;
+	/* overflow: hidden; */
 `;
 
 const StyledIcon = styled(Icon)`

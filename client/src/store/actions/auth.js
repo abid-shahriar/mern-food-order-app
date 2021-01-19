@@ -31,7 +31,7 @@ export const signUp = (user) => async (dispatch) => {
 	} catch (error) {
 		dispatch({
 			type: actionTypes.SIGNUP_FAILED,
-			payload: error.response.message
+			payload: error.response.data.message
 		});
 	}
 };
