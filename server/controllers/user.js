@@ -8,13 +8,26 @@ const secret = process.env.JWT_SECRET;
 
 import userModel from '../models/userModel.js';
 
-export const signIn = (req, res) => {
-	console.log(req.body.password);
-	if (req.body.password !== '12345567') {
-		res.status(400).json({ message: 'wrong pass' });
-	}
+export const signIn = async (req, res) => {
+	const { email, password } = req.body;
 
-	res.json({ user: req.body });
+	try {
+		const oldUser = await userModel.findOne({ email });
+
+		if (!oldUser) return res.status(404).json({ message: 'no user found with this email' });
+
+		const isPassCorrect = await bcrypt.compare(password, oldUser.password);
+
+		if (!isPassCorrect) return res.status(400).json({ message: 'invalid Credentials' });
+
+		const token = jwt.sign({ email: oldUser.email, firstName: oldUser.firstName, lastName: oldUser.lastName, id: oldUser._id }, secret, {
+			expiresIn: '1w'
+		});
+
+		res.status(200).json(token);
+	} catch (error) {
+		console.log(error);
+	}
 };
 
 export const signUp = async (req, res) => {
@@ -27,11 +40,11 @@ export const signUp = async (req, res) => {
 
 		const hashedPass = await bcrypt.hash(password, 12);
 
-		const newUser = { ...req.body, password: hashedPass };
+		const newUser = await userModel.create({ firstName, lastName, email, password: hashedPass });
 
-		await userModel.create(newUser);
-
-		const token = jwt.sign({ email, firstName, lastName }, secret, { expiresIn: '1w' });
+		const token = jwt.sign({ email: newUser.email, firstName: newUser.firstName, lastName: newUser.lastName, id: newUser._id }, secret, {
+			expiresIn: '1w'
+		});
 
 		res.status(201).json(token);
 	} catch (error) {

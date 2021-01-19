@@ -1,7 +1,9 @@
-import axios from 'axios';
 import { useState } from 'react';
 import { Grid, Form, Icon, Message } from 'semantic-ui-react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+
+import { signIn, signUp } from '../../store/actions/auth';
 
 import { CustomInputField } from '../../components/customComponents/CustomFormFields';
 
@@ -17,6 +19,8 @@ const LoginRegisterFrom = () => {
 	const [isSignUp, setIsSignUp] = useState(false);
 	const [formData, setFromData] = useState(intialFromData);
 	const [errorMsg, setErroeMsg] = useState('');
+
+	const dispatch = useDispatch();
 
 	const handleMode = () => {
 		setIsSignUp((prevState) => !prevState);
@@ -36,28 +40,10 @@ const LoginRegisterFrom = () => {
 			if (formData.password !== formData.cpassword) {
 				return setErroeMsg('Passowrds does not match');
 			}
-			await axios
-				.post('http://localhost:3000/user/signup', formData)
-				.then((res) => {
-					if (res.status === 200) {
-						setErroeMsg('');
-						console.log(res.data);
-					}
-				})
-				.catch((err) => {
-					setErroeMsg(err.response.data.message);
-				});
+
+			dispatch(signUp(formData));
 		} else {
-			await axios
-				.post('http://localhost:3000/user/login', formData)
-				.then((res) => {
-					if (res.status === 200) {
-						setErroeMsg('');
-					}
-				})
-				.catch((err) => {
-					setErroeMsg(err.response.data.message);
-				});
+			dispatch(signIn(formData));
 		}
 	};
 	return (
