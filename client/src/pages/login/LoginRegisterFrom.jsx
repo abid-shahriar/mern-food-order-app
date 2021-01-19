@@ -19,6 +19,8 @@ const LoginRegisterFrom = () => {
 	const [isSignUp, setIsSignUp] = useState(false);
 	const [formData, setFromData] = useState(intialFromData);
 	const [errorMessage, setErrorMessage] = useState('');
+	const [showPass, setShowPass] = useState(false);
+	const [matchPass, setMatchPass] = useState(false);
 
 	const dispatch = useDispatch();
 	const auth = useSelector((state) => state.auth);
@@ -26,6 +28,12 @@ const LoginRegisterFrom = () => {
 	useEffect(() => {
 		setErrorMessage(auth.error);
 	}, [auth]);
+
+	useEffect(() => {
+		formData.password === formData.cpassword ? setMatchPass(true) : setMatchPass(false);
+	}, [formData.cpassword, formData.password]);
+
+	const handleShowPass = () => setShowPass((prevState) => !prevState);
 
 	const handleMode = () => {
 		document.querySelector('form').reset();
@@ -67,9 +75,23 @@ const LoginRegisterFrom = () => {
 				)}
 
 				<CustomInputField name='email' type='text' placeholder='Your email' label='Email' handleChange={handleChange} />
-				<CustomInputField name='password' type='password' placeholder='Password' label='Password' handleChange={handleChange} />
+				<CustomInputField
+					name='password'
+					type={showPass ? 'text' : 'password'}
+					placeholder='Password'
+					label='Password'
+					handleChange={handleChange}
+					handleShowPass={handleShowPass}
+				/>
 				{isSignUp && (
-					<CustomInputField name='cpassword' type='password' placeholder='Re-enter password' label='Confirm Password' handleChange={handleChange} />
+					<CustomInputField
+						name='cpassword'
+						type='password'
+						placeholder='Re-enter password'
+						label='Confirm Password'
+						handleChange={handleChange}
+						matchPass={matchPass}
+					/>
 				)}
 
 				{errorMessage && <Message size='small' error header={`Error..!!!`} content={errorMessage} />}
