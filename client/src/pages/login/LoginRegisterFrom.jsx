@@ -119,7 +119,7 @@ const StyledFromContainer = styled(Grid.Column)`
 	border-radius: 3px;
 	padding: 1rem;
 	position: relative;
-	/* overflow: hidden; */
+	background-color: rgba(255, 255, 255, 0.5);
 `;
 
 const StyledIcon = styled(Icon)`
