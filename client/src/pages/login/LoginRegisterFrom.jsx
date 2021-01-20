@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Grid, Form, Icon, Message, Loader, Transition } from 'semantic-ui-react';
+import { Grid, Form, Icon, Message, Loader } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 

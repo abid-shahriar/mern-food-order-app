@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Segment, Icon, Header, Container, Button, Label } from 'semantic-ui-react';
+import { Icon } from 'semantic-ui-react';
 import styled, { css } from 'styled-components';
 
 import CustomTypo from '../../components/customComponents/CustomType';
