@@ -1,14 +1,24 @@
 import React from 'react';
-import { Grid, Segment, Icon, Header, Container } from 'semantic-ui-react';
+import { Grid, Segment, Icon, Header, Container, Button, Label } from 'semantic-ui-react';
 import styled, { css } from 'styled-components';
+
+import CustomTypo from '../../components/customComponents/CustomType';
 
 const Nav = () => {
 	return (
 		<>
 			<StyledNav>
-				<StyledDiv className='logo'>
+				<StyledDiv>
 					<Icon name='food' size='big' />
 					<StyledSpan>FoodBird</StyledSpan>
+				</StyledDiv>
+				<StyledDiv>
+					<CustomTypo bold padded>
+						Abid
+					</CustomTypo>
+					<StyledBtn className='ui button blue' style={{ marginLeft: '2rem' }}>
+						Login
+					</StyledBtn>
 				</StyledDiv>
 			</StyledNav>
 			<StyledDiv shadow></StyledDiv>
@@ -26,6 +36,7 @@ const StyledSpan = styled.span`
 const StyledDiv = styled.div`
 	display: flex;
 	align-items: center;
+	justify-content: center;
 
 	${(props) =>
 		props.shadow &&
@@ -43,5 +54,8 @@ const StyledNav = styled.nav`
 	align-items: center;
 	justify-content: space-between;
 	height: 70px;
-	/* box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); */
+`;
+
+const StyledBtn = styled.button`
+	margin-left: 2rem;
 `;
