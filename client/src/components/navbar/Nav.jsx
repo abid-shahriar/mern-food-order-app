@@ -16,9 +16,10 @@ const Nav = () => {
 					<CustomTypo bold padded>
 						Abid
 					</CustomTypo>
-					<StyledBtn className='ui button blue' style={{ marginLeft: '2rem' }}>
+					<Icon name='arrow down' />
+					{/* <StyledBtn className='ui button blue' style={{ marginLeft: '2rem' }}>
 						Login
-					</StyledBtn>
+					</StyledBtn> */}
 				</StyledDiv>
 			</StyledNav>
 			<StyledDiv shadow></StyledDiv>
