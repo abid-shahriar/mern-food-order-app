@@ -26,7 +26,7 @@ export const signIn = async (req, res) => {
 
 		const userData = { email: oldUser.email, firstName: oldUser.firstName, lastName: oldUser.lastName, id: oldUser._id };
 
-		res.status(200).json({ userData, token });
+		res.status(200).json({ ...userData, token });
 	} catch (error) {
 		console.log(error);
 	}
@@ -50,7 +50,7 @@ export const signUp = async (req, res) => {
 
 		const userData = { email: newUser.email, firstName: newUser.firstName, lastName: newUser.lastName, id: newUser._id };
 
-		res.status(201).json({ userData, token });
+		res.status(201).json({ ...userData, token });
 	} catch (error) {
 		console.log(error);
 	}
