@@ -16,7 +16,7 @@ const Nav = () => {
 					<CustomTypo bold padded>
 						Abid
 					</CustomTypo>
-					<Icon name='arrow down' />
+					<Icon name='angle down' size='large' />
 					{/* <StyledBtn className='ui button blue' style={{ marginLeft: '2rem' }}>
 						Login
 					</StyledBtn> */}
