@@ -2,7 +2,7 @@ import React from 'react';
 import { Icon } from 'semantic-ui-react';
 import styled, { css } from 'styled-components';
 
-import CustomTypo from '../../components/customComponents/CustomType';
+import CustomTypo from '../customComponents/CustomTypo';
 
 const Nav = () => {
 	return (
