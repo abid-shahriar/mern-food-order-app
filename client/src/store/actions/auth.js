@@ -1,10 +1,7 @@
 import * as actionTypes from '../constants/actionTypes';
 import * as API from '../api/index';
-import { history } from 'react-router-dom';
 
-const history = history();
-
-export const signIn = (user) => async (dispatch) => {
+export const signIn = (user, history) => async (dispatch) => {
 	dispatch({ type: actionTypes.LOGIN_REQUEST, payload: user });
 
 	try {
@@ -13,6 +10,7 @@ export const signIn = (user) => async (dispatch) => {
 			type: actionTypes.LOGIN_SUCCESS,
 			payload: data
 		});
+		history.push('/');
 	} catch (error) {
 		dispatch({
 			type: actionTypes.LOGIN_FAILED,
@@ -21,7 +19,7 @@ export const signIn = (user) => async (dispatch) => {
 	}
 };
 
-export const signUp = (user) => async (dispatch) => {
+export const signUp = (user, history) => async (dispatch) => {
 	dispatch({ type: actionTypes.SIGNUP_REQUEST, payload: user });
 
 	try {
@@ -31,6 +29,7 @@ export const signUp = (user) => async (dispatch) => {
 			type: actionTypes.SIGNUP_SUCCESS,
 			payload: data
 		});
+		history.push('/');
 	} catch (error) {
 		dispatch({
 			type: actionTypes.SIGNUP_FAILED,

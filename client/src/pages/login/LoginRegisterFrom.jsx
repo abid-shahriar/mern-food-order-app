@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Grid, Form, Icon, Message, Loader } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import { signIn, signUp } from '../../store/actions/auth';
 
@@ -22,6 +23,7 @@ const LoginRegisterFrom = () => {
 	const [showPass, setShowPass] = useState(false);
 	const [matchPass, setMatchPass] = useState(false);
 
+	const history = useHistory();
 	const dispatch = useDispatch();
 	const auth = useSelector((state) => state.auth);
 
@@ -57,9 +59,9 @@ const LoginRegisterFrom = () => {
 				return setErrorMessage('Passowrds does not match');
 			}
 
-			dispatch(signUp(formData));
+			dispatch(signUp(formData, history));
 		} else {
-			dispatch(signIn(formData));
+			dispatch(signIn(formData, history));
 		}
 	};
 	return (
