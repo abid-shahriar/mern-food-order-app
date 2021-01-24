@@ -1,5 +1,8 @@
 import * as actionTypes from '../constants/actionTypes';
 import * as API from '../api/index';
+import { history } from 'react-router-dom';
+
+const history = history();
 
 export const signIn = (user) => async (dispatch) => {
 	dispatch({ type: actionTypes.LOGIN_REQUEST, payload: user });
