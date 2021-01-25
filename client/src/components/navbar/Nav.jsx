@@ -1,10 +1,12 @@
 import React from 'react';
-import { Icon } from 'semantic-ui-react';
+import { Icon, Label } from 'semantic-ui-react';
 import styled, { css } from 'styled-components';
 
 import CustomTypo from '../customComponents/CustomTypo';
 
 const Nav = () => {
+	const user = JSON.parse(localStorage.getItem('profile'));
+
 	return (
 		<>
 			<StyledNav>
@@ -13,13 +15,21 @@ const Nav = () => {
 					<StyledSpan>FoodBird</StyledSpan>
 				</StyledDiv>
 				<StyledDiv>
-					<CustomTypo bold padded>
-						Abid
-					</CustomTypo>
-					<Icon name='angle down' size='large' />
-					{/* <StyledBtn className='ui button blue' style={{ marginLeft: '2rem' }}>
-						Login
-					</StyledBtn> */}
+					{user ? (
+						<>
+							<Label circular color='violet' size='big'>
+								{user.firstName.charAt(0)}
+							</Label>
+							<CustomTypo bold padded>
+								{user.firstName}
+							</CustomTypo>
+							<Icon name='angle down' size='large' />
+						</>
+					) : (
+						<StyledBtn className='ui button blue' style={{ marginLeft: '2rem' }}>
+							Login
+						</StyledBtn>
+					)}
 				</StyledDiv>
 			</StyledNav>
 			<StyledDiv shadow></StyledDiv>

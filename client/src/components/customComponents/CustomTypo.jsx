@@ -20,6 +20,6 @@ const StyledTypo = styled.div`
 	${(props) =>
 		props.padded &&
 		css`
-			padding: 0 1rem;
+			padding: 0 1rem 0 0.5rem;
 		`}
 `;
