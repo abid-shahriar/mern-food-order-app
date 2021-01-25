@@ -1,18 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import { Icon, Label } from 'semantic-ui-react';
 import styled, { css } from 'styled-components';
 
 import CustomTypo from '../customComponents/CustomTypo';
 
 const Nav = () => {
-	const [user, setUser] = useState();
+	const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+
+	const location = useLocation();
+	// const history = useHistory();
 
 	useEffect(() => {
 		setUser(JSON.parse(localStorage.getItem('profile')));
-	}, []);
-
-	console.log(user);
+	}, [location]);
 
 	return (
 		<>
@@ -30,13 +31,11 @@ const Nav = () => {
 							<CustomTypo bold padded>
 								{user.firstName}
 							</CustomTypo>
-							<Icon name='angle down' size='large' />
+							<Icon name='angle down' size='large' link />
 						</>
-					) : (
+					) : location === '/login' ? null : (
 						<Link to='/login'>
-							<StyledBtn className='ui button blue' style={{ marginLeft: '2rem' }}>
-								Login
-							</StyledBtn>
+							<StyledBtn className='ui button blue'>Login</StyledBtn>
 						</Link>
 					)}
 				</StyledDiv>
