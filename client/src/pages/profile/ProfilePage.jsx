@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux';
 const Profile = () => {
 	const user = useSelector((state) => state.user);
 
-	console.log(user);
 	return (
 		<StyledProfileContainer>
 			<div>
@@ -17,10 +16,12 @@ const Profile = () => {
 
 			<div>
 				<Segment>
-					<span>Name:</span>
-					<span>
-						{user.firstName} {user.lastName}
-					</span>
+					<span>First Name:</span>
+					<span>{user.firstName}</span>
+				</Segment>
+				<Segment>
+					<span>Last Name:</span>
+					<span>{user.lastName}</span>
 				</Segment>
 				<Segment>
 					<span>Email:</span>
