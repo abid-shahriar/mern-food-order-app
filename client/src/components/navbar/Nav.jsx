@@ -48,7 +48,11 @@ const Nav = () => {
 
 							<Dropdown icon={<Icon name='angle down' size='large' />}>
 								<Dropdown.Menu style={{ backgroundColor: 'lightgrey' }}>
-									<Dropdown.Item icon='edit' text='Profile' />
+									<Dropdown.Item>
+										<Link to='/profile'>
+											<Icon name='user' /> Profile
+										</Link>
+									</Dropdown.Item>
 									<Dropdown.Item icon='settings' text='Settings' />
 									<Dropdown.Item>
 										<Button color='red' onClick={handleLogout}>
