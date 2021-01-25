@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link, useHistory, useLocation } from 'react-router-dom';
-import { Icon, Label } from 'semantic-ui-react';
+import { Dropdown, Icon, Label, Button } from 'semantic-ui-react';
 import styled, { css } from 'styled-components';
+
+import { logout } from '../../store/actions/auth';
 
 import CustomTypo from '../customComponents/CustomTypo';
 
@@ -9,13 +12,20 @@ const Nav = () => {
 	const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
 
 	const location = useLocation();
-	// const history = useHistory();
-
-	console.log(location);
+	const history = useHistory();
+	const dispatch = useDispatch();
 
 	useEffect(() => {
-		setUser(JSON.parse(localStorage.getItem('profile')));
+		if (localStorage.getItem('profile')) {
+			setUser(JSON.parse(localStorage.getItem('profile')));
+		} else {
+			setUser('');
+		}
 	}, [location]);
+
+	const handleLogout = () => {
+		dispatch(logout(history));
+	};
 
 	return (
 		<>
@@ -35,7 +45,18 @@ const Nav = () => {
 							<CustomTypo bold padded>
 								{user.firstName}
 							</CustomTypo>
-							<Icon name='angle down' size='large' link />
+
+							<Dropdown icon={<Icon name='angle down' size='large' />}>
+								<Dropdown.Menu style={{ backgroundColor: 'lightgrey' }}>
+									<Dropdown.Item icon='edit' text='Profile' />
+									<Dropdown.Item icon='settings' text='Settings' />
+									<Dropdown.Item>
+										<Button color='red' onClick={handleLogout}>
+											Logout
+										</Button>
+									</Dropdown.Item>
+								</Dropdown.Menu>
+							</Dropdown>
 						</>
 					) : location.pathname === '/login' ? null : (
 						<Link to='/login'>

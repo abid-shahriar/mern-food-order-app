@@ -37,3 +37,11 @@ export const signUp = (user, history) => async (dispatch) => {
 		});
 	}
 };
+
+export const logout = (history) => (dispatch) => {
+	dispatch({
+		type: actionTypes.LOGOUT
+	});
+
+	history.push('/');
+};

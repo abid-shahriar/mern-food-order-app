@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Grid, Form, Icon, Message, Loader } from 'semantic-ui-react';
+import { Grid, Form, Icon, Message, Loader, Button } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -97,12 +97,12 @@ const LoginRegisterFrom = () => {
 				)}
 				{errorMessage && <Message size='small' error header={`Error..!!!`} content={errorMessage} />}
 
-				<StyledBtn className='ui button blue'>
+				<StyledBtn color='blue'>
 					{auth.loading ? <Loader inverted size='tiny' inline active={auth.loading} /> : isSignUp ? 'Sign Up' : 'Login'}
 				</StyledBtn>
 
 				{!isSignUp && (
-					<StyledBtn className='ui button google plus' style={{ marginTop: '1rem' }} color='google plus'>
+					<StyledBtn color='google plus' style={{ marginTop: '1rem' }}>
 						Google Login
 					</StyledBtn>
 				)}
@@ -139,6 +139,6 @@ const StyledPara = styled.p`
 	margin-top: ${(props) => (props.modeText ? '2rem' : '1rem')};
 `;
 
-const StyledBtn = styled.button`
+const StyledBtn = styled(Button)`
 	width: 100%;
 `;
