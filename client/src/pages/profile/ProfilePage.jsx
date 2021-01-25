@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Grid, Label, Segment } from 'semantic-ui-react';
+import { Button, Grid, Icon, Label, Segment } from 'semantic-ui-react';
 import { useSelector } from 'react-redux';
 
 const Profile = () => {
@@ -27,6 +27,12 @@ const Profile = () => {
 					<span>Email:</span>
 					<span>{user.email}</span>
 				</Segment>
+				<div>
+					<Button color='blue'>
+						<Icon name='edit' />
+						Edit Profile
+					</Button>
+				</div>
 			</div>
 		</StyledProfileContainer>
 	);
