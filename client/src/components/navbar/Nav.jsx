@@ -11,6 +11,8 @@ const Nav = () => {
 	const location = useLocation();
 	// const history = useHistory();
 
+	console.log(location);
+
 	useEffect(() => {
 		setUser(JSON.parse(localStorage.getItem('profile')));
 	}, [location]);
@@ -18,10 +20,12 @@ const Nav = () => {
 	return (
 		<>
 			<StyledNav>
-				<StyledDiv>
-					<Icon name='food' size='big' />
-					<StyledSpan>FoodBird</StyledSpan>
-				</StyledDiv>
+				<Link to='/'>
+					<StyledDiv>
+						<Icon name='food' size='big' />
+						<StyledSpan>FoodBird</StyledSpan>
+					</StyledDiv>
+				</Link>
 				<StyledDiv>
 					{user ? (
 						<>
@@ -33,7 +37,7 @@ const Nav = () => {
 							</CustomTypo>
 							<Icon name='angle down' size='large' link />
 						</>
-					) : location === '/login' ? null : (
+					) : location.pathname === '/login' ? null : (
 						<Link to='/login'>
 							<StyledBtn className='ui button blue'>Login</StyledBtn>
 						</Link>

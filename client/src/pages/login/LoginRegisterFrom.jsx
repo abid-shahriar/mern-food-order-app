@@ -132,7 +132,7 @@ const StyledIcon = styled(Icon)`
 `;
 
 const StyledPara = styled.p`
-	cursor: ${(props) => (props.modeText ? 'none' : 'pointer')};
+	cursor: ${(props) => (props.modeText ? 'default' : 'pointer')};
 	color: ${(props) => (props.modeText ? 'black' : '#3f3fad')};
 	font-size: ${(props) => (props.modeText ? '1.5rem' : '1rem')};
 	text-align: ${(props) => (props.modeText ? 'center' : 'right')};
