@@ -11,6 +11,8 @@ import userModel from '../models/userModel.js';
 export const signIn = async (req, res) => {
 	const { email, password } = req.body;
 
+	console.log(req.connection.remoteAddress);
+
 	try {
 		const oldUser = await userModel.findOne({ email });
 

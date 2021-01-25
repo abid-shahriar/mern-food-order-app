@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Icon, Label } from 'semantic-ui-react';
 import styled, { css } from 'styled-components';
 
 import CustomTypo from '../customComponents/CustomTypo';
 
 const Nav = () => {
-	const user = JSON.parse(localStorage.getItem('profile'));
+	const [user, setUser] = useState();
+
+	useEffect(() => {
+		setUser(JSON.parse(localStorage.getItem('profile')));
+	}, []);
+
+	console.log(user);
 
 	return (
 		<>
@@ -26,9 +33,11 @@ const Nav = () => {
 							<Icon name='angle down' size='large' />
 						</>
 					) : (
-						<StyledBtn className='ui button blue' style={{ marginLeft: '2rem' }}>
-							Login
-						</StyledBtn>
+						<Link to='/login'>
+							<StyledBtn className='ui button blue' style={{ marginLeft: '2rem' }}>
+								Login
+							</StyledBtn>
+						</Link>
 					)}
 				</StyledDiv>
 			</StyledNav>
