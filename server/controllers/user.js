@@ -11,8 +11,6 @@ import userModel from '../models/userModel.js';
 export const signIn = async (req, res) => {
 	const { email, password } = req.body;
 
-	console.log(req.connection.remoteAddress);
-
 	try {
 		const oldUser = await userModel.findOne({ email });
 
@@ -51,6 +49,41 @@ export const signUp = async (req, res) => {
 		});
 
 		const userData = { email: newUser.email, firstName: newUser.firstName, lastName: newUser.lastName, id: newUser._id };
+
+		res.status(201).json({ ...userData, token });
+	} catch (error) {
+		console.log(error);
+	}
+};
+export const updateUser = async (req, res) => {
+	if (!req.userID) {
+		return res.status(400).json({ message: 'Unauthorized User' });
+	}
+
+	const userID = req.userID;
+
+	const { firstName, lastName, email } = req.body;
+
+	try {
+		// const otherUserWithEmail = await userModel.findOne({ email });
+
+		// if (otherUserWithEmail) return res.status(400).json({ message: 'The email is already taken' });
+
+		// const oldUser = await userModel.findOne({ userID });
+
+		// console.log(oldUser);
+
+		// if (!oldUser) return res.status(400).json({ message: 'Unauthorized User' });
+
+		const updateUserData = { firstName, lastName, email };
+
+		const updateUser = await userModel.findByIdAndUpdate(userID, updateUserData, { new: true });
+
+		const token = jwt.sign({ email: updateUser.email, id: updateUser._id }, secret, {
+			expiresIn: '1w'
+		});
+
+		const userData = { email: updateUser.email, firstName: updateUser.firstName, lastName: updateUser.lastName, id: updateUser._id };
 
 		res.status(201).json({ ...userData, token });
 	} catch (error) {

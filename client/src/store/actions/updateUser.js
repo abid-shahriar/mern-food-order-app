@@ -1,11 +1,11 @@
 import * as actionTypes from '../constants/actionTypes';
 import * as API from '../api/index';
 
-export const editProfile = (userData) => async (dispatch) => {
+export const updateUser = (userData) => async (dispatch) => {
 	dispatch({ type: actionTypes.EDITPROFILE_REQUEST, payload: userData });
 
 	try {
-		const { data } = await API.editProfile(userData);
+		const { data } = await API.updateUser(userData);
 		dispatch({
 			type: actionTypes.EDITPROFILE_SUCCESS,
 			payload: data
