@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Button, Grid, Icon, Label, Segment } from 'semantic-ui-react';
 import { useSelector } from 'react-redux';
+import EditProfile from './EditProfile';
 
 const Profile = () => {
+	const [editProfile, setEditProfile] = useState(false);
 	const user = useSelector((state) => state.user);
+
+	const changeMode = () => setEditProfile((prevState) => !prevState);
 
 	return (
 		<StyledProfileContainer>
@@ -14,26 +18,30 @@ const Profile = () => {
 				</Label>
 			</div>
 
-			<div>
-				<Segment>
-					<span>First Name:</span>
-					<span>{user.firstName}</span>
-				</Segment>
-				<Segment>
-					<span>Last Name:</span>
-					<span>{user.lastName}</span>
-				</Segment>
-				<Segment>
-					<span>Email:</span>
-					<span>{user.email}</span>
-				</Segment>
+			{!editProfile ? (
 				<div>
-					<Button color='blue'>
-						<Icon name='edit' />
-						Edit Profile
-					</Button>
+					<Segment>
+						<span>First Name:</span>
+						<span>{user.firstName}</span>
+					</Segment>
+					<Segment>
+						<span>Last Name:</span>
+						<span>{user.lastName}</span>
+					</Segment>
+					<Segment>
+						<span>Email:</span>
+						<span>{user.email}</span>
+					</Segment>
+					<div>
+						<Button color='blue' onClick={changeMode}>
+							<Icon name='edit' />
+							Edit Profile
+						</Button>
+					</div>
 				</div>
-			</div>
+			) : (
+				<EditProfile />
+			)}
 		</StyledProfileContainer>
 	);
 };
