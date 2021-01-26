@@ -19,6 +19,5 @@ export const updateUser = (userData) => async (dispatch) => {
 };
 
 export const clearMessages = (bool) => async (dispatch) => {
-	console.log('fn');
 	bool && dispatch({ type: actionTypes.CLEAR_MESSAGES, payload: '' });
 };

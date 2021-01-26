@@ -98,7 +98,7 @@ const LoginRegisterFrom = () => {
 				{errorMessage && <Message size='small' error header={`Error..!!!`} content={errorMessage} />}
 
 				<StyledBtn color='blue' type='submit'>
-					{auth.loading ? <Loader inverted size='tiny' inline active={auth.loading} /> : isSignUp ? 'Sign Up' : 'Login'}
+					{auth.isLoading ? <Loader inverted size='tiny' inline active={auth.isLoading} /> : isSignUp ? 'Sign Up' : 'Login'}
 				</StyledBtn>
 
 				{!isSignUp && (

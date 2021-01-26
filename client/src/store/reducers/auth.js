@@ -10,7 +10,6 @@ const initialState = {
 const authReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case actionTypes.CLEAR_MESSAGES:
-			console.log('back');
 			return {
 				...state,
 				isLoading: false,
