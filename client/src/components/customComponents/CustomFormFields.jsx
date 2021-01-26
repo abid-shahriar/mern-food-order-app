@@ -1,7 +1,7 @@
 import { Input, Form, Icon } from 'semantic-ui-react';
 import styled from 'styled-components';
 
-export const CustomInputField = ({ label, name, placeholder, type, width = 16, handleChange, handleShowPass, matchPass, value }) => {
+export const CustomInputField = ({ label, name, placeholder, type, width = 16, handleChange, handleShowPass, matchPass, value, autofocus }) => {
 	return (
 		<StyledFormField width={width}>
 			<Input
@@ -18,6 +18,7 @@ export const CustomInputField = ({ label, name, placeholder, type, width = 16, h
 				placeholder={placeholder}
 				onChange={handleChange}
 				value={value}
+				autoFocus={autofocus}
 				required
 			/>
 		</StyledFormField>
