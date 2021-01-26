@@ -2,17 +2,26 @@ import * as actionTypes from '../constants/actionTypes';
 
 const initialState = {
 	user: '',
-	loading: false,
-	error: ''
+	isLoading: false,
+	error: '',
+	success: ''
 };
 
 const authReducer = (state = initialState, action) => {
 	switch (action.type) {
+		case actionTypes.CLEAR_MESSAGES:
+			console.log('back');
+			return {
+				...state,
+				isLoading: false,
+				error: '',
+				success: ''
+			};
 		case actionTypes.SIGNUP_REQUEST:
 			return {
 				...state,
 				user: '',
-				loading: true,
+				isLoading: true,
 				error: ''
 			};
 
@@ -21,7 +30,7 @@ const authReducer = (state = initialState, action) => {
 			return {
 				...state,
 				user: action.payload,
-				loading: false,
+				isLoading: false,
 				error: ''
 			};
 
@@ -29,14 +38,14 @@ const authReducer = (state = initialState, action) => {
 			return {
 				...state,
 				user: '',
-				loading: false,
+				isLoading: false,
 				error: action.payload
 			};
 		case actionTypes.LOGIN_REQUEST:
 			return {
 				...state,
 				user: '',
-				loading: true,
+				isLoading: true,
 				error: ''
 			};
 		case actionTypes.LOGIN_SUCCESS:
@@ -44,7 +53,7 @@ const authReducer = (state = initialState, action) => {
 			return {
 				...state,
 				user: action.payload,
-				loading: false,
+				isLoading: false,
 				error: ''
 			};
 
@@ -52,7 +61,7 @@ const authReducer = (state = initialState, action) => {
 			return {
 				...state,
 				user: '',
-				loading: false,
+				isLoading: false,
 				error: action.payload
 			};
 		case actionTypes.LOGOUT:
@@ -60,25 +69,29 @@ const authReducer = (state = initialState, action) => {
 			return {
 				...state,
 				user: '',
-				loading: false,
+				isLoading: false,
 				error: ''
 			};
 		case actionTypes.EDITPROFILE_REQUEST:
 			return {
+				...state,
 				user: {},
 				isLoading: true,
-				error: {}
+				error: ''
 			};
 
 		case actionTypes.EDITPROFILE_SUCCESS:
 			localStorage.setItem('profile', JSON.stringify({ ...action.payload }));
 			return {
+				...state,
 				user: action.payload,
-				isLoading: true,
-				error: {}
+				isLoading: false,
+				error: '',
+				success: action.payload.message
 			};
 		case actionTypes.EDITPROFILE_FAILED:
 			return {
+				...state,
 				user: {},
 				isLoading: false,
 				error: action.payload

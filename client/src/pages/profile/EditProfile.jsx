@@ -3,14 +3,16 @@ import { useDispatch } from 'react-redux';
 import { Button, Form, Message } from 'semantic-ui-react';
 import { useSelector } from 'react-redux';
 
-import { updateUser } from '../../store/actions/updateUser';
+import { updateUser, clearMessages } from '../../store/actions/updateUser';
 
 import { CustomInputField } from '../../components/customComponents/CustomFormFields';
 
 const EditProfileForm = ({ changeMode }) => {
 	const user = useSelector((state) => state.user);
+	const auth = useSelector((state) => state.auth);
 
 	const [errorMessage, setErrorMessage] = useState('');
+	const [successMessage, setSuccessMessage] = useState('');
 	const [editProfileData, setEditProfileData] = useState({
 		firstName: user.firstName,
 		lastName: user.lastName,
@@ -20,8 +22,9 @@ const EditProfileForm = ({ changeMode }) => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		setErrorMessage(user.error);
-	}, [user]);
+		setErrorMessage(auth.error);
+		setSuccessMessage(auth.success);
+	}, [auth]);
 
 	const handleChange = (e) => {
 		setEditProfileData({
@@ -34,11 +37,17 @@ const EditProfileForm = ({ changeMode }) => {
 		e.preventDefault();
 
 		dispatch(updateUser(editProfileData));
-
-		if (!errorMessage) {
-			changeMode();
-		}
 	};
+
+	const handleBack = (e) => {
+		e.preventDefault();
+
+		dispatch(clearMessages(true));
+
+		changeMode();
+	};
+
+	console.log(auth);
 
 	return (
 		<Form onSubmit={handleSubmit}>
@@ -60,14 +69,14 @@ const EditProfileForm = ({ changeMode }) => {
 			/>
 			<CustomInputField name='email' type='text' value={editProfileData.email} placeholder='Email' label='Email' handleChange={handleChange} />
 
-			{errorMessage && <Message size='small' error header={`Error..!!!`} content={errorMessage} />}
+			{errorMessage && <Message size='small' negative header={`Error..!!!`} content={errorMessage} />}
+			{successMessage && <Message size='small' positive header={`Success..!!!`} content={successMessage} />}
 
 			<div style={{ textAlign: 'right' }}>
-				<Button color='black' onClick={changeMode}>
-					Cancel
+				<Button color='black' onClick={handleBack}>
+					Back
 				</Button>
 				<Button color='blue' type='submit'>
-					{/* {auth.loading ? <Loader inverted size='tiny' inline active={auth.loading} /> : isSignUp ? 'Sign Up' : 'Login'} */}
 					Save
 				</Button>
 			</div>

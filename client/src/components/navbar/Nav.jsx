@@ -38,7 +38,7 @@ const Nav = () => {
 					</StyledDiv>
 				</Link>
 				<StyledDiv>
-					{user ? (
+					{user.token ? (
 						<>
 							<Label circular color='violet' size='big'>
 								{user.firstName.charAt(0)}

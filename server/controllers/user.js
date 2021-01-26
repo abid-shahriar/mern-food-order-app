@@ -56,9 +56,7 @@ export const signUp = async (req, res) => {
 	}
 };
 export const updateUser = async (req, res) => {
-	if (!req.userID) {
-		return res.status(400).json({ message: 'Unauthorized User' });
-	}
+	if (!req.userID) return res.status(400).json({ message: 'Unauthorized User' });
 
 	const userID = req.userID;
 
@@ -85,7 +83,7 @@ export const updateUser = async (req, res) => {
 
 		const userData = { email: updateUser.email, firstName: updateUser.firstName, lastName: updateUser.lastName, id: updateUser._id };
 
-		res.status(201).json({ ...userData, token });
+		res.status(201).json({ ...userData, token, message: 'Profile Update Success' });
 	} catch (error) {
 		console.log(error);
 	}
