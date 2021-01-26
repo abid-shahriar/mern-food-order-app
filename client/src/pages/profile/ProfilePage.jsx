@@ -32,7 +32,7 @@ const Profile = () => {
 						<span>Email:</span>
 						<span>{user.email}</span>
 					</Segment>
-					<div>
+					<div style={{ textAlign: 'right' }}>
 						<Button color='blue' onClick={changeMode}>
 							<Icon name='edit' />
 							Edit Profile
@@ -40,7 +40,7 @@ const Profile = () => {
 					</div>
 				</div>
 			) : (
-				<EditProfile />
+				<EditProfile changeMode={changeMode} />
 			)}
 		</StyledProfileContainer>
 	);
