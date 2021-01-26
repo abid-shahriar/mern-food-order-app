@@ -1,5 +1,4 @@
-import React from 'react';
-
+import { Form } from 'semantic-ui-react';
 const EditProfile = () => {
 	return <div></div>;
 };
