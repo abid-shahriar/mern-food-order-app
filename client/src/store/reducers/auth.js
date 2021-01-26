@@ -63,6 +63,26 @@ const authReducer = (state = initialState, action) => {
 				loading: false,
 				error: ''
 			};
+		case actionTypes.EDITPROFILE_REQUEST:
+			return {
+				user: {},
+				isLoading: true,
+				error: {}
+			};
+
+		case actionTypes.EDITPROFILE_SUCCESS:
+			localStorage.setItem('profile', JSON.stringify({ ...action.payload }));
+			return {
+				user: action.payload,
+				isLoading: true,
+				error: {}
+			};
+		case actionTypes.EDITPROFILE_FAILED:
+			return {
+				user: {},
+				isLoading: false,
+				error: action.payload
+			};
 
 		default:
 			return state;

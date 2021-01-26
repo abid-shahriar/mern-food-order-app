@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { Dropdown, Icon, Label, Button } from 'semantic-ui-react';
 import styled, { css } from 'styled-components';
@@ -9,7 +9,8 @@ import { logout } from '../../store/actions/auth';
 import CustomTypo from '../customComponents/CustomTypo';
 
 const Nav = () => {
-	const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+	const userData = useSelector((state) => state.user);
+	const [user, setUser] = useState(userData);
 
 	const location = useLocation();
 	const history = useHistory();
@@ -21,7 +22,7 @@ const Nav = () => {
 		} else {
 			setUser('');
 		}
-	}, [location]);
+	}, [location, userData]);
 
 	const handleLogout = () => {
 		dispatch(logout(history));

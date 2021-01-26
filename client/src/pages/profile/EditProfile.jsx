@@ -9,7 +9,7 @@ import { CustomInputField } from '../../components/customComponents/CustomFormFi
 
 const EditProfileForm = ({ changeMode }) => {
 	const user = useSelector((state) => state.user);
-	const updateUserData = useSelector((state) => state.updateUser);
+
 	const [errorMessage, setErrorMessage] = useState('');
 	const [editProfileData, setEditProfileData] = useState({
 		firstName: user.firstName,
@@ -20,8 +20,8 @@ const EditProfileForm = ({ changeMode }) => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		setErrorMessage(updateUserData.error);
-	}, [updateUserData]);
+		setErrorMessage(user.error);
+	}, [user]);
 
 	const handleChange = (e) => {
 		setEditProfileData({
@@ -35,7 +35,9 @@ const EditProfileForm = ({ changeMode }) => {
 
 		dispatch(updateUser(editProfileData));
 
-		console.log(editProfileData);
+		if (!errorMessage) {
+			changeMode();
+		}
 	};
 
 	return (
