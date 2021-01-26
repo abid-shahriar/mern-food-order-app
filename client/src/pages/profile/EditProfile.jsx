@@ -58,6 +58,7 @@ const EditProfileForm = ({ changeMode }) => {
 				placeholder='First Name'
 				label='First Name'
 				handleChange={handleChange}
+				autofocus={true}
 			/>
 			<CustomInputField
 				name='lastName'
