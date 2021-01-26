@@ -47,8 +47,6 @@ const EditProfileForm = ({ changeMode }) => {
 		changeMode();
 	};
 
-	console.log(auth);
-
 	return (
 		<Form onSubmit={handleSubmit}>
 			<CustomInputField
