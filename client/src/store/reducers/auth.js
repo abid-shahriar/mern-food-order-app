@@ -88,7 +88,6 @@ const authReducer = (state = initialState, action) => {
 				success: action.payload.message
 			};
 		case actionTypes.EDITPROFILE_FAILED:
-			console.log(action.payload);
 			return {
 				...state,
 				success: '',

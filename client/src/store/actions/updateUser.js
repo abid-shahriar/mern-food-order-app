@@ -11,7 +11,6 @@ export const updateUser = (userData) => async (dispatch) => {
 			payload: data
 		});
 	} catch (error) {
-		console.log(error.response.data.message);
 		dispatch({
 			type: actionTypes.EDITPROFILE_FAILED,
 			payload: error.response.data.message
