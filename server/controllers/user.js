@@ -8,6 +8,7 @@ const secret = process.env.JWT_SECRET;
 
 import userModel from '../models/userModel.js';
 
+// user Sign In
 export const signIn = async (req, res) => {
 	const { email, password } = req.body;
 
@@ -32,6 +33,7 @@ export const signIn = async (req, res) => {
 	}
 };
 
+// user Sign Up
 export const signUp = async (req, res) => {
 	const { firstName, lastName, email, password } = req.body;
 
@@ -55,6 +57,8 @@ export const signUp = async (req, res) => {
 		console.log(error);
 	}
 };
+
+// Update User info
 export const updateUser = async (req, res) => {
 	if (!req.userID) return res.status(400).json({ message: 'Unauthorized User' });
 
@@ -102,24 +106,6 @@ export const updateUser = async (req, res) => {
 
 			res.status(201).json({ ...userData, token, message: 'Profile Update Success' });
 		}
-
-		// if (otherUserWithEmail) return res.status(400).json({ message: 'The email is already taken' });
-
-		// const oldUser = await userModel.findOne({ _id: userID });
-
-		// if (!oldUser) return res.status(400).json({ message: 'Unauthorized User' });
-
-		// const updateUserData = { firstName, lastName, email };
-
-		// const updateUser = await userModel.findByIdAndUpdate(userID, updateUserData, { new: true });
-
-		// const token = jwt.sign({ email: updateUser.email, id: updateUser._id }, secret, {
-		// 	expiresIn: '1w'
-		// });
-
-		// const userData = { email: updateUser.email, firstName: updateUser.firstName, lastName: updateUser.lastName, id: updateUser._id };
-
-		// res.status(201).json({ ...userData, token, message: 'Profile Update Success' });
 	} catch (error) {
 		console.log(error);
 	}
