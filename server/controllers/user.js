@@ -63,27 +63,63 @@ export const updateUser = async (req, res) => {
 	const { firstName, lastName, email } = req.body;
 
 	try {
-		// const otherUserWithEmail = await userModel.findOne({ email });
+		const otherUserWithEmail = await userModel.findOne({ email });
+
+		if (otherUserWithEmail) {
+			const oldUser = await userModel.findOne({ _id: userID });
+
+			if (!oldUser) return res.status(400).json({ message: 'Unauthorized User' });
+
+			if (otherUserWithEmail.email === oldUser.email) {
+				const updateUserData = { firstName, lastName, email };
+
+				const updateUser = await userModel.findByIdAndUpdate(userID, updateUserData, { new: true });
+
+				const token = jwt.sign({ email: updateUser.email, id: updateUser._id }, secret, {
+					expiresIn: '1w'
+				});
+
+				const userData = { email: updateUser.email, firstName: updateUser.firstName, lastName: updateUser.lastName, id: updateUser._id };
+
+				res.status(201).json({ ...userData, token, message: 'Profile Update Success' });
+			} else {
+				res.status(400).json({ message: 'the email is already taken' });
+			}
+		} else {
+			const oldUser = await userModel.findOne({ _id: userID });
+
+			if (!oldUser) return res.status(400).json({ message: 'Unauthorized User' });
+
+			const updateUserData = { firstName, lastName, email };
+
+			const updateUser = await userModel.findByIdAndUpdate(userID, updateUserData, { new: true });
+
+			const token = jwt.sign({ email: updateUser.email, id: updateUser._id }, secret, {
+				expiresIn: '1w'
+			});
+
+			const userData = { email: updateUser.email, firstName: updateUser.firstName, lastName: updateUser.lastName, id: updateUser._id };
+
+			res.status(201).json({ ...userData, token, message: 'Profile Update Success' });
+		}
 
 		// if (otherUserWithEmail) return res.status(400).json({ message: 'The email is already taken' });
 
-		const oldUser = await userModel.findOne({ userID });
-
-		console.log(oldUser);
+		// const oldUser = await userModel.findOne({ _id: userID });
 
 		// if (!oldUser) return res.status(400).json({ message: 'Unauthorized User' });
 
-		const updateUserData = { firstName, lastName, email };
+		// const updateUserData = { firstName, lastName, email };
 
-		const updateUser = await userModel.findByIdAndUpdate(userID, updateUserData, { new: true });
+		// const updateUser = await userModel.findByIdAndUpdate(userID, updateUserData, { new: true });
 
-		const token = jwt.sign({ email: updateUser.email, id: updateUser._id }, secret, {
-			expiresIn: '1w'
-		});
+		// const token = jwt.sign({ email: updateUser.email, id: updateUser._id }, secret, {
+		// 	expiresIn: '1w'
+		// });
 
-		const userData = { email: updateUser.email, firstName: updateUser.firstName, lastName: updateUser.lastName, id: updateUser._id };
+		// const userData = { email: updateUser.email, firstName: updateUser.firstName, lastName: updateUser.lastName, id: updateUser._id };
 
-		res.status(201).json({ ...userData, token, message: 'Profile Update Success' });
+		// res.status(201).json({ ...userData, token, message: 'Profile Update Success' });
 	} catch (error) {
 		console.log(error);
 	}

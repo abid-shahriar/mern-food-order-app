@@ -74,7 +74,6 @@ const authReducer = (state = initialState, action) => {
 		case actionTypes.EDITPROFILE_REQUEST:
 			return {
 				...state,
-				user: {},
 				isLoading: true,
 				error: ''
 			};
@@ -89,10 +88,10 @@ const authReducer = (state = initialState, action) => {
 				success: action.payload.message
 			};
 		case actionTypes.EDITPROFILE_FAILED:
+			console.log(action.payload);
 			return {
 				...state,
-				user: {},
-				isLoading: false,
+				success: '',
 				error: action.payload
 			};
 

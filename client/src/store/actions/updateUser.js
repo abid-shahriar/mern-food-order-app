@@ -2,7 +2,7 @@ import * as actionTypes from '../constants/actionTypes';
 import * as API from '../api/index';
 
 export const updateUser = (userData) => async (dispatch) => {
-	dispatch({ type: actionTypes.EDITPROFILE_REQUEST, payload: userData });
+	dispatch({ type: actionTypes.EDITPROFILE_REQUEST });
 
 	try {
 		const { data } = await API.updateUser(userData);
@@ -11,6 +11,7 @@ export const updateUser = (userData) => async (dispatch) => {
 			payload: data
 		});
 	} catch (error) {
+		console.log(error.response.data.message);
 		dispatch({
 			type: actionTypes.EDITPROFILE_FAILED,
 			payload: error.response.data.message
