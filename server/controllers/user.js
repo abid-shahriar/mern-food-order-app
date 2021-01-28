@@ -67,9 +67,9 @@ export const updateUser = async (req, res) => {
 
 		// if (otherUserWithEmail) return res.status(400).json({ message: 'The email is already taken' });
 
-		// const oldUser = await userModel.findOne({ userID });
+		const oldUser = await userModel.findOne({ userID });
 
-		// console.log(oldUser);
+		console.log(oldUser);
 
 		// if (!oldUser) return res.status(400).json({ message: 'Unauthorized User' });
 
