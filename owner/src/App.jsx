@@ -1,7 +1,13 @@
-import React from 'react';
+import Navbar from './components/Navbar';
+import RegistrationFomr from './pages/Registration';
 
 const App = () => {
-	return <div>hello world</div>;
+	return (
+		<div>
+			<Navbar />
+			<RegistrationFomr />
+		</div>
+	);
 };
 
 export default App;
