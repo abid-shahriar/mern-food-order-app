@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Button, Grid, Icon, Label, Segment } from 'semantic-ui-react';
 import { useSelector } from 'react-redux';
 import EditProfile from './EditProfile';
@@ -12,25 +12,24 @@ const Profile = () => {
 
 	return (
 		<StyledProfileContainer>
-			<div>
-				<Label circular color='violet' size='big'>
+			<StyledDiv avatar>
+				<Label circular color='violet' size='massive'>
 					{user.firstName.charAt(0)}
 				</Label>
-			</div>
+			</StyledDiv>
 
 			{!editProfile ? (
 				<div>
 					<Segment>
-						<span>First Name:</span>
-						<span>{user.firstName}</span>
+						<StyledSpan title>Name:</StyledSpan>
+						<StyledSpan value>
+							{user.firstName} {user.lastName}
+						</StyledSpan>
 					</Segment>
+
 					<Segment>
-						<span>Last Name:</span>
-						<span>{user.lastName}</span>
-					</Segment>
-					<Segment>
-						<span>Email:</span>
-						<span>{user.email}</span>
+						<StyledSpan title>Email:</StyledSpan>
+						<StyledSpan value>{user.email}</StyledSpan>
 					</Segment>
 					<div style={{ textAlign: 'right' }}>
 						<Button color='blue' onClick={changeMode}>
@@ -56,4 +55,25 @@ const StyledProfileContainer = styled(Grid.Column)`
 	padding: 1rem;
 	position: relative;
 	background-color: rgba(255, 255, 255, 0.5);
+	padding-top: 3rem;
+`;
+
+const StyledDiv = styled.div`
+	${(props) =>
+		props.avatar &&
+		css`
+			position: absolute;
+			top: 0%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		`}
+`;
+
+const StyledSpan = styled.span`
+	${(props) =>
+		props.title &&
+		css`
+			font-weight: bold;
+			margin-right: 0.5rem;
+		`}
 `;
